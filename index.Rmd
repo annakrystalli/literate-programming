@@ -8,6 +8,13 @@ output:
     toc_float: true
     theme: cosmo
     highlight: textmate
+  xaringan::moon_reader:
+    css: ["default", "assets/css/little_ak.css", "assets/css/little_ak-fonts.css"]  
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
 ---
 
 ```{css, echo = F}
@@ -34,18 +41,22 @@ magick_webshot <- function(...){
 }
 ```
 
-<div class="alert alert-info"><strong>https://annakrystalli.me/literate-programming/</strong></div>
+<br>
 
-### **Handout at: [annakrystalli.me/literate-programming/](annakrystalli.me/literate-programming/)**
+---
 
-### **Materials on [GitHub]()*** 
+### **Handout at:**
+[**http://annakrystalli.me/literate-programming/**]( http://annakrystalli.me/literate-programming/)
 
-#### [\@annakrystalli](https://twitter.com/annakrystalli) | a.krystalli[at]sheffield.ac.uk
+### **Materials on [GitHub](https://github.com/annakrystalli/literate-programming/tree/master)**
+
+#### [\@annakrystalli](https://twitter.com/annakrystalli) | a.krystalli\[at]sheffield.ac.uk
 
 
 <br>
 <br>
 
+---
 
 # Literate programming
 
@@ -179,7 +190,6 @@ Rstudio features fly through
 ---
 
 
-
 ## elements of R markdown
 
 ---
@@ -202,8 +212,10 @@ Rstudio features fly through
 ## **code {r,** python, SQL, ... **}**
 
 - Code chunks defined through special notation. Executed in sequence. Exceution of individual chunks controllable
+
 - Analysis self-contained and reproducible
     - Run in a fresh R session every time document is knit.
+    
 - A number of [Language Engines](https://rmarkdown.rstudio.com/authoring_knitr_engines.html) are supported by `knitr`
     - **R** (default)
     - Python
@@ -213,9 +225,11 @@ Rstudio features fly through
     - Stan
     - JavaScript
     - CSS
+    
 - Can read appropriately annotated `.R` scripts in and call them within an `.Rmd`
 
 ---
+
 ## **outputs**
 
 **Knit together through package `knitr` to **
@@ -228,7 +242,7 @@ All this makes it incredibly versatile. Check out the [gallery](https://rmarkdow
 
 <br>
 
-**Simple interface to powerfull modern web technologies and libraries**
+**Simple interface to powerful modern web technologies and libraries**
 
 ```{r echo=F}
 
@@ -237,13 +251,13 @@ magick::image_read("http://www.kagesoft.com/images/web-technologies.png") %>%
 
 ```
 
-## applications in research
+## Applications in research
 
 ### `Rmd` documents
 
 Can be useful for a number of research related materials
 
-- Vignettes
+- [**Vignettes**](http://r-pkgs.had.co.nz/vignettes.html): long form documentation.
     - Analyses
     - Documentation (code & data)
     - Supplementary materials
@@ -269,6 +283,7 @@ Can even be used to write thesis!
 <img src="assets/logo_bookdown.png", width="200px"/>
 <img src="assets/cover_bookdown.jpg", width="200px"/>
 
+---
 
 ### [pkgdown](http://pkgdown.r-lib.org/articles/pkgdown.html)
 
@@ -342,7 +357,7 @@ magick_webshot(url = "https://awesome-blogdown.com/",
 Render an `.Rmd` document by clicking on the **knit** button.
 
 ```{r echo=F}
-magick::image_read("assets/knit.png")
+magick::image_read("assets/knit.png") %>% magick::image_resize("300x400")
 ```
 
 You can also render `.Rmd` documents to html using `rmarkdown` function `render()`
@@ -353,13 +368,20 @@ rmarkdown::render(input = "render-this-doc.Rmd")
 
 ---
 
-### Open the cheatsheet
+### open the cheatsheet
 
 
-[<img src="assets/cheat.png" width="500px"/>](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
+[<img src="assets/cheat.png" width="300px"/>](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
+
+### install the packages we'll need
+
+```{r, eval=FALSE}
+install.packages(c("rmarkdown", "tidyverse", "plotly", "DT", "reprex"))
+```
 
 
 ---
+
 
 <br>
 <br>
@@ -460,9 +482,11 @@ magick_webshot(url = "http://rpubs.com/annakrystalli/372827",
 
 ---
 
+
 <br>
 
-# **markdown basics**
+
+# **Markdown basics**
 
 <br>
 
@@ -482,7 +506,9 @@ normal text
         ***bold italic text***
 ***bold italic text***
 
+---
         superscript^2^
+
 superscript^2^
 
         ~~strikethrough~~
@@ -740,7 +766,7 @@ Embbed gifs, videos, widgets in this way
 
 Supports mathematical notations through [MathJax](http://www.onemathematicalcat.org/MathJaxDocumentation/TeXSyntax.htm).
 
-You can write LaTeX math expressions inside a pair of dollar signs, e.g. &#36;\alpha+\beta$ renders $\alpha+\beta$. You can use the display style with double dollar signs:
+You can write LaTeX math expressions inside a pair of dollar signs, e.g. `$\alpha+\beta$` renders $\alpha+\beta$. You can use the display style with double dollar signs:
 
 ```
 $$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$
@@ -750,9 +776,12 @@ $$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$
 
 ---
 
-# **chunks**
 
-R code chunks execute code.
+# Chunks
+
+---
+
+**R code chunks execute code.**
 
 They can also be used as a means render R output into documents or to simply display code for illustration (eg with option `eval=FALSE`)
 
@@ -1019,13 +1048,19 @@ p <- ggplot(data = d, aes(x = carat, y = price)) +
   geom_point(aes(text = paste("Clarity:", clarity)), size = 1) +
   geom_smooth(aes(colour = cut, fill = cut)) + facet_wrap(~ cut)
 
-p
-
 ```
+
+---
+
+```{r}
+p
+```
+
 
 <br>
 
 ---
+
 
 # **interactivity**
 
@@ -1046,15 +1081,8 @@ datatable(airquality, caption = "New York Air Quality Measurements")
 
 Wraps nicely around plotting library **`ggplot2`**
 
-```{r, warning=FALSE, message=FALSE, echo=FALSE, fig.height=5, fig.width=8.3}
+```{r, warning=FALSE, message=FALSE}
 library(plotly)
-
-set.seed(100)
-d <- diamonds[sample(nrow(diamonds), 1000), ]
-
-p <- ggplot(data = d, aes(x = carat, y = price)) +
-  geom_point(aes(text = paste("Clarity:", clarity)), size = 1) +
-  geom_smooth(aes(colour = cut, fill = cut)) + facet_wrap(~ cut)
 
 ggplotly(p)
 
@@ -1087,7 +1115,10 @@ Shiny allows you to build interactive apps and dash boards through R and publish
 
 ---
 
+
 # **Exercise**
+
+---
 
 ## **your mission**
 
@@ -1101,12 +1132,15 @@ Shiny allows you to build interactive apps and dash boards through R and publish
 - plot some data
 - write a bit about what you did
 - publish it on rpubs. Add you link to our [googledoc](https://docs.google.com/document/d/1-yDYTwBU-shqRvpG903K4iSsVyGZDXdfWakrAbf7KUE/edit?usp=sharing)
-see my example: **beavers!** 
+
+
+### See my example: **beavers!** 
 
 - [html](http://rpubs.com/annakrystalli/200119) 
 - [raw .Rmd](https://raw.githubusercontent.com/annakrystalli/ISBE_symposium/master/markdown/beavers.Rmd)
 
---
+---
+
 
 # Parting words
 
@@ -1150,6 +1184,14 @@ Use function **`reprex::reprex()`** to produce a reproducible example in a custo
 
 ---
 
+## Learn about Version Control
+
+Use **Git** and **GitHub** to manage, publish and collaborate on your work
+
+### See [**Happy Git with R**](http://happygitwithr.com/) Tutorial
+
+---
+
 ## Share your work
 
 - Start a blog!
@@ -1168,19 +1210,19 @@ Use function **`reprex::reprex()`** to produce a reproducible example in a custo
 
 
 ---
+class: inverse
 
 # **Resources**
 
-<smaller>
-[offical markdown documentation](http://daringfireball.net/projects/markdown/basics)
 
-[Rmarkdown documentation](http://rmarkdown.rstudio.com/)
+- [offical markdown documentation](http://daringfireball.net/projects/markdown/basics)
 
-[Rstudio Rmarkdown cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
+- [Rmarkdown documentation](http://rmarkdown.rstudio.com/)
+
+- [Rstudio Rmarkdown cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
 
 
-[Reproducible Research](https://www.coursera.org/learn/reproducible-research) coursera MOOC
+- [Reproducible Research](https://www.coursera.org/learn/reproducible-research) coursera MOOC
 
-[Producing html documents from `.R` scripts using `knitr::spin`](http://deanattali.com/2015/03/24/knitrs-best-hidden-gem-spin/)
+- [Producing html documents from `.R` scripts using `knitr::spin`](http://deanattali.com/2015/03/24/knitrs-best-hidden-gem-spin/)
 
-</smaller>
